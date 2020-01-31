@@ -1,14 +1,14 @@
-#import newspaper
+import newspaper
 from flask import Flask, render_template, request, make_response, g
 
-#def particle(rul):
- #   try:
- #       article = newspaper.Article(rul)
-   #     article.download()
- #       article.parse()
-  #      return article.text
-  #  except Exception as e:
-  #      return str(e)
+def particle(rul):
+    try:
+        article = newspaper.Article(rul)
+        article.download()
+        article.parse()
+        return article.text
+    except Exception as e:
+        return str(e)
         
 app = Flask(__name__)
 @app.route("/ping", methods=['POST', 'GET'])
@@ -17,8 +17,7 @@ def ping():
     
 @app.route("/run", methods=['POST'])
 def extract1():
-    return 'boom'
-    #return particle(request.form['url'])
+    return particle(request.form['url'])
 
     
 @app.route("/run", methods=['GET'])
