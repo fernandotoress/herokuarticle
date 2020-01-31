@@ -16,7 +16,7 @@ def ping():
     return 'pong!'
     
 @app.route("/run", methods=['POST'])
-def extract():
+def extract1():
     return 'boom'
     #return particle(request.form['url'])
 
