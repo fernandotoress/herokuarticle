@@ -1,9 +1,9 @@
-from newspaper import Article
+import newspaper
 from flask import Flask, render_template, request, make_response, g
 
 def particle(url):
     try:
-        article = Article(url)
+        article = newspaper.Article(url)
         article.download()
         article.parse()
         return article.text
