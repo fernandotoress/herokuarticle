@@ -1,4 +1,5 @@
 import newspaper
+import os
 from flask import Flask, render_template, request, make_response, g
 
 def particle(rul):
@@ -27,6 +28,6 @@ def extract():
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
-        port=80,
+        port=os.environ['PORT'],
         
     )
