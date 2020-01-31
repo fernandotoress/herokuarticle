@@ -17,8 +17,9 @@ def ping():
     
 @app.route("/run", methods=['POST'])
 def extract():
+    return 'boom'
     #return particle(request.form['url'])
-	return 'boom'
+
     
 @app.route("/run", methods=['GET'])
 def extract():
