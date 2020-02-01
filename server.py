@@ -8,18 +8,17 @@ app = Klein()
 @app.route("/ping", methods=['POST', 'GET'])
 def ping(request):
     return 'pong!'
-    
+
 @app.route("/url", methods=['POST'])
-@inlineCallbacks
 def extract1(request):
-    r = yield treq.get(request.args.get('url', [0])[0])
-    content = yield r.content()
-    text = newspaper.fulltext(content)
-    returnValue(text)
+    r = treq.get(request.args[b'url'][0].decode())
+    r.addCallback(treq.content)
+    content = newspaper.fulltext(r)
+    return content
 
 @app.route("/text", methods=['POST'])
 def extract6(request):
-    return newspaper.fulltext(request.args.get('text', [0])[0])
+    return newspaper.fulltext(request.args[b'text'][0].decode())
     
 @app.route("/url", methods=['GET'])
 def extract(request):
