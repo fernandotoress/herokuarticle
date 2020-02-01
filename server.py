@@ -7,25 +7,25 @@ import newspaper
 app = Sanic()
 @app.route("/ping", methods=['POST', 'GET'])
 async def ping(request):
-    return 'pong!'
+    return text('pong!')
     
 @app.route("/url", methods=['POST'])
 async def extract1(request):
     data = requests.get(request.body.decode()).text
     content = newspaper.fulltext(data)
-    return data
+    return text(data)
 	
 @app.route("/text", methods=['POST'])
 async def extract6(request):
-    return newspaper.fulltext(request.body.decode())
+    return text(newspaper.fulltext(request.body.decode()))
     
 @app.route("/url", methods=['GET'])
 async def extract(request):
-    return 'Post'
+    return text('Post')
 
 @app.route("/text", methods=['GET'])
 async def extract2(request):
-    return 'Post'
+    return text('Post')
     
     
 if __name__ == '__main__':
