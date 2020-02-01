@@ -22,7 +22,7 @@ def extract1():
 
 @app.route("/text", methods=['POST'])
 def extract6():
-    return newspaper.fulltext(request.form['text']))
+    return newspaper.fulltext(request.form['text'])
     
 @app.route("/url", methods=['GET'])
 def extract():
