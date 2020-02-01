@@ -1,37 +1,36 @@
-import newspaper
 import os
-import treq
-from klein import Klein
-from twisted.internet.defer import inlineCallbacks, returnValue
+from sanic import Sanic
+from sanic.response import json
+import requests
+import newspaper
         
-app = Klein()
+app = Sanic()
 @app.route("/ping", methods=['POST', 'GET'])
-def ping(request):
+async def ping(request):
     return 'pong!'
-
+    
 @app.route("/url", methods=['POST'])
-def extract1(request):
-    r = treq.get(request.args[b'url'][0].decode())
-    r.addCallback(treq.content)
-    content = newspaper.fulltext(r)
-    return content
-
+async def extract1(request):
+    data = requests.get(request.body.decode()).text
+    content = newspaper.fulltext(data)
+    return data
+	
 @app.route("/text", methods=['POST'])
-def extract6(request):
-    return newspaper.fulltext(request.args[b'text'][0].decode())
+async def extract6(request):
+    return newspaper.fulltext(request.body.decode())
     
 @app.route("/url", methods=['GET'])
-def extract(request):
+async def extract(request):
     return 'Post'
 
 @app.route("/text", methods=['GET'])
-def extract2(request):
+async def extract2(request):
     return 'Post'
     
     
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
-        port=os.environ['PORT'],
+        port=8080,
         
     )
