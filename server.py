@@ -1,17 +1,8 @@
 import newspaper
 import os
+import treq
 from klein import Klein
- 
-
-
-def particle(rul):
-    try:
-        article = newspaper.Article(rul)
-        article.download()
-        article.parse()
-        return article.text
-    except Exception as e:
-        return str(e)
+from twisted.internet.defer import inlineCallbacks, returnValue
         
 app = Klein()
 @app.route("/ping", methods=['POST', 'GET'])
@@ -19,10 +10,15 @@ def ping(request):
     return 'pong!'
     
 @app.route("/url", methods=['POST'])
+@inlineCallbacks
 def extract1(request):
-    return particle(request.args.get('url', [0])[0])
+    r = yield treq.get(request.args.get('url', [0])[0])
+    content = yield r.content()
+    text = newspaper.fulltext(content)
+    returnValue(text)
 
 @app.route("/text", methods=['POST'])
+@inlineCallbacks
 def extract6(request):
     return newspaper.fulltext(request.args.get('text', [0])[0])
     
