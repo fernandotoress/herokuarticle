@@ -13,7 +13,7 @@ async def ping(request):
 async def extract1(request):
     data = requests.get(request.body.decode()).text
     content = newspaper.fulltext(data)
-    return text(data)
+    return text(content)
 	
 @app.route("/text", methods=['POST'])
 async def extract6(request):
