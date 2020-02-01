@@ -1,4 +1,3 @@
 newspaper3k
-Klein
-treq
-twisted
+requests
+sanic
