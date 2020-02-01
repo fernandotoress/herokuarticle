@@ -1,6 +1,8 @@
 import newspaper
 import os
-from flask import Flask, render_template, request, make_response, g
+from klein import Klein
+ 
+
 
 def particle(rul):
     try:
@@ -11,25 +13,25 @@ def particle(rul):
     except Exception as e:
         return str(e)
         
-app = Flask(__name__)
+app = Klein()
 @app.route("/ping", methods=['POST', 'GET'])
-def ping():
+def ping(request):
     return 'pong!'
     
 @app.route("/url", methods=['POST'])
-def extract1():
-    return particle(request.form['url'])
+def extract1(request):
+    return particle(request.args.get('url', [0])[0])
 
 @app.route("/text", methods=['POST'])
-def extract6():
-    return newspaper.fulltext(request.form['text'])
+def extract6(request):
+    return newspaper.fulltext(request.args.get('text', [0])[0])
     
 @app.route("/url", methods=['GET'])
-def extract():
+def extract(request):
     return 'Post'
 
 @app.route("/text", methods=['GET'])
-def extract2():
+def extract2(request):
     return 'Post'
     
     
