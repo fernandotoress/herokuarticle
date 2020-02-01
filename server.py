@@ -16,14 +16,22 @@ app = Flask(__name__)
 def ping():
     return 'pong!'
     
-@app.route("/run", methods=['POST'])
+@app.route("/url", methods=['POST'])
 def extract1():
     return particle(request.form['url'])
 
+@app.route("/text", methods=['POST'])
+def extract6():
+    return article.fulltext(request.form['text']))
     
-@app.route("/run", methods=['GET'])
+@app.route("/url", methods=['GET'])
 def extract():
     return 'Post'
+
+@app.route("/text", methods=['GET'])
+def extract2():
+    return 'Post'
+    
     
 if __name__ == '__main__':
     app.run(
