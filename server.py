@@ -18,7 +18,6 @@ def extract1(request):
     returnValue(text)
 
 @app.route("/text", methods=['POST'])
-@inlineCallbacks
 def extract6(request):
     return newspaper.fulltext(request.args.get('text', [0])[0])
     
